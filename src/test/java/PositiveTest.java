@@ -27,9 +27,31 @@ public class PositiveTest {
         }
     }
     @Test
+    public void testSearch(){
+        driver.get("https://animego.one");
+
+        WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(
+                By.cssSelector("#navbar-search")));
+        searchButton.click();
+
+        WebElement searchInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector("input[name='q']")));
+        searchInput.sendKeys("Джо");
+
+        searchInput.submit();
+        // Ищем содержат ли названия "Джо"
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//a[contains(text(), 'Джо')]")));
+        // Проверяем первое найденое название аниме
+        WebElement animeText = driver.findElement(
+                By.xpath("//div[@class='h5 font-weight-normal mb-2 card-title text-truncate']/a"));
+        String actualTitleFromAttribute  = animeText.getAttribute("title");
+        assertEquals("Невероятное приключение ДжоДжо: Рыцари звёздной пыли",actualTitleFromAttribute);
+    }
+    @Test
     public void testSuccessfulLoginFormElements() {
         // Открываем страницу логина
-        driver.get("https://animego.org/login");
+        driver.get("https://animego.one/login");
 
         String titleText = driver.findElement(By.className("custom-control-description")).getText();
         assertEquals("Запомнить меня", titleText);

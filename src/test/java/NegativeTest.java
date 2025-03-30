@@ -30,7 +30,7 @@ public class NegativeTest {
     @Test
     public void unsuccessfulLoginTest() {
         // Открываем страницу логина
-        driver.get("https://animego.org/login");
+        driver.get("https://animego.one/login");
 
         // Заполняем поля логином и неправильным паролем
         driver.findElement(By.id("username")).sendKeys("valid_username");
